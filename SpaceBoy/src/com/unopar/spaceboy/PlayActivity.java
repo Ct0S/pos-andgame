@@ -19,6 +19,7 @@ import org.andengine.ui.activity.BaseGameActivity;
 import com.unopar.spaceboy.base.IXCollisionListener;
 import com.unopar.spaceboy.base.XApplication;
 import com.unopar.spaceboy.character.Enemy;
+import com.unopar.spaceboy.character.ExplosionEffect;
 import com.unopar.spaceboy.character.Sattelite;
 import com.unopar.spaceboy.character.SpaceBoy;
 import com.unopar.spaceboy.joystick.ControlListener;
@@ -38,6 +39,9 @@ public class PlayActivity extends BaseGameActivity {
 
 	private BitmapTextureAtlas mEnemyTextureAtlas;
 	private TiledTextureRegion mSatteliteTexture;
+	
+	private BitmapTextureAtlas mEffectTextureAtlas;
+	private TiledTextureRegion mExplosionEffectTexture;
 
 	private Sound mImplosion;
 
@@ -86,12 +90,20 @@ public class PlayActivity extends BaseGameActivity {
 		mSatteliteTexture = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(mEnemyTextureAtlas, getAssets(),
 						"character-satellite.png", 0, 0, 1, 1);
+		
+		mEffectTextureAtlas = new BitmapTextureAtlas(
+				getTextureManager(), 1024, 512);
+		mExplosionEffectTexture = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(
+						mEffectTextureAtlas, getAssets(),
+						"effect-explosions.png", 0, 0, 16, 8);
 
 		mBackgroundTextureAtlas.load();
 		mParallaxTopTextureAtlas.load();
 		mSpaceBoyTextureAtlas.load();
 		mJoystickTextureAtlas.load();
 		mEnemyTextureAtlas.load();
+		mEffectTextureAtlas.load();
 		// getTextureManager().loadTexture(mJoystickTextureAtlas);
 
 		mImplosion = SoundFactory.createSoundFromAsset(
@@ -122,7 +134,7 @@ public class PlayActivity extends BaseGameActivity {
 				getVertexBufferObjectManager());
 
 		AutoParallaxBackground parallax = new AutoParallaxBackground(0, 0, 0, 5);
-		parallax.attachParallaxEntity(new ParallaxEntity(-5, spriteBackground));
+		parallax.attachParallaxEntity(new ParallaxEntity(0, spriteBackground));
 		parallax.attachParallaxEntity(new ParallaxEntity(-25, spriteParallaxTop));
 
 		pScene.setBackground(parallax);
@@ -130,12 +142,17 @@ public class PlayActivity extends BaseGameActivity {
 		final SpaceBoy boy = new SpaceBoy(20, 250, mSpaceBoyTextureRetion,
 				mEngine);
 		pScene.attachChild(boy);
+		
+		final ExplosionEffect explosionEffect = new ExplosionEffect(
+				mImplosion, mExplosionEffectTexture, mEngine);
+		pScene.attachChild(explosionEffect);
 
 		IXCollisionListener collisionListener = new IXCollisionListener() {
 			@Override
 			public void onCollision(AnimatedSprite obstacle) {
 				if(obstacle instanceof Sattelite) {
-					mImplosion.play();
+					explosionEffect.show(
+							obstacle.getX(), obstacle.getY());
 				}
 			}
 
