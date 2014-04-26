@@ -3,10 +3,7 @@ package com.unopar.spaceboy.character;
 import org.andengine.engine.Engine;
 import org.andengine.engine.handler.physics.PhysicsHandler;
 import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
-
-import com.unopar.spaceboy.base.XApplication;
 
 public class SpaceBoy extends AnimatedSprite {
 	public enum States {

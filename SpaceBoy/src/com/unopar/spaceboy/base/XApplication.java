@@ -32,8 +32,8 @@ public class XApplication extends Application {
 		
 		display.getMetrics(displayMetrics);
 		
-		mScreenHeight = displayMetrics.widthPixels;
-		mScreenWidth = displayMetrics.heightPixels;
+		mScreenHeight = displayMetrics.heightPixels;
+		mScreenWidth = displayMetrics.widthPixels;
 	}
 	
 	public static XApplication getInstance() {
