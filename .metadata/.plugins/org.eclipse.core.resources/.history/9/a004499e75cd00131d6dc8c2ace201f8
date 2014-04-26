@@ -1,0 +1,44 @@
+package com.unopar.unomario;
+
+import org.andengine.engine.Engine;
+import org.andengine.engine.options.EngineOptions;
+import org.andengine.entity.scene.Scene;
+import org.andengine.extension.tmx.TMXLoader;
+import org.andengine.extension.tmx.TMXTiledMap;
+import org.andengine.ui.activity.BaseGameActivity;
+
+import com.unopar.unomario.base.XApplication;
+
+public class PlayActivity extends BaseGameActivity {
+	private TMXTiledMap mTileMap;
+	
+	@Override
+	public EngineOptions onCreateEngineOptions() {
+		Engine engine = XApplication.getInstance().createDefaultEngine();
+		
+		return engine.getEngineOptions();
+	}
+
+	@Override
+	public void onCreateResources(
+			OnCreateResourcesCallback pOnCreateResourcesCallback)
+			throws Exception {
+		
+		TMXLoader tmxLoader = new TMXLoader(getAssets(), 
+				mEngine.getTextureManager(), mEngine.getVertexBufferObjectManager());
+		mTileMap = tmxLoader.loadFromAsset("world1.tmx");
+		
+		pOnCreateResourcesCallback.onCreateResourcesFinished();
+	}
+
+	@Override
+	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback)
+			throws Exception {
+		pOnCreateSceneCallback.onCreateSceneFinished(new Scene());
+	}
+
+	@Override
+	public void onPopulateScene(Scene pScene,
+			OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
+	}
+}
