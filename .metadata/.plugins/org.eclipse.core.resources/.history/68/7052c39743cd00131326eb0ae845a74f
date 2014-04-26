@@ -1,0 +1,20 @@
+package com.unopar.spaceboy.character;
+
+import org.andengine.engine.Engine;
+import org.andengine.engine.handler.physics.PhysicsHandler;
+import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
+
+public class Enemy extends AnimatedSprite {
+	
+	private PhysicsHandler mPhysicalHandler;
+
+	public Enemy(float pX, float pY, 
+			ITiledTextureRegion textureRegion, Engine engine) {
+		super(pX, pY, textureRegion, engine.getVertexBufferObjectManager());
+		
+		mPhysicalHandler = new PhysicsHandler(this);
+		registerUpdateHandler(mPhysicalHandler);
+	}
+
+}

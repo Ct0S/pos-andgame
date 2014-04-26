@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.andengine.engine.camera.hud.controls.AnalogOnScreenControl.IAnalogOnScreenControlListener"/>
+<fullyQualifiedTypeName name="com.unopar.spaceboy.character.SpaceBoy"/>
+<fullyQualifiedTypeName name="org.andengine.opengl.texture.region.TextureRegion"/>
+<fullyQualifiedTypeName name="org.andengine.engine.camera.hud.controls.AnalogOnScreenControl"/>
+<fullyQualifiedTypeName name="com.unopar.spaceboy.joystick.ControlListener"/>
+<fullyQualifiedTypeName name="org.andengine.opengl.texture.region.ITiledTextureRegion"/>
+<fullyQualifiedTypeName name="org.andengine.engine.Engine"/>
+<fullyQualifiedTypeName name="org.andengine.engine.handler.physics.PhysicsHandler"/>
+<fullyQualifiedTypeName name="java.util.Random"/>
+<fullyQualifiedTypeName name="com.unopar.spaceboy.base.XApplication"/>
+<fullyQualifiedTypeName name="org.andengine.opengl.texture.region.TiledTextureRegion"/>
+<fullyQualifiedTypeName name="org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas"/>
+<fullyQualifiedTypeName name="org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory"/>
+<fullyQualifiedTypeName name="org.andengine.entity.sprite.AnimatedSprite"/>
+<fullyQualifiedTypeName name="com.unopar.spaceboy.base.IXCollisionListener"/>
+<fullyQualifiedTypeName name="org.andengine.audio.sound.Sound"/>
+<fullyQualifiedTypeName name="org.andengine.audio.sound.SoundFactory"/>
+<fullyQualifiedTypeName name="com.unopar.spaceboy.character.Sattelite"/>
+<fullyQualifiedTypeName name="com.unopar.spaceboy.character.Enemy"/>
+</qualifiedTypeNameHistroy>

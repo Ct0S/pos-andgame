@@ -1,0 +1,7 @@
+package com.unopar.spaceboy.joystick;
+
+import org.andengine.engine.camera.hud.controls.AnalogOnScreenControl.IAnalogOnScreenControlListener;
+
+public class ControlListener implements IAnalogOnScreenControlListener {
+
+}

@@ -1,5 +1,6 @@
 package com.unopar.spaceboy.base;
 
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
@@ -32,8 +33,8 @@ public class XApplication extends Application {
 		
 		display.getMetrics(displayMetrics);
 		
-		mScreenHeight = displayMetrics.heightPixels;
-		mScreenWidth = displayMetrics.widthPixels;
+		mScreenHeight = displayMetrics.widthPixels;
+		mScreenWidth = displayMetrics.heightPixels;
 	}
 	
 	public static XApplication getInstance() {
@@ -51,6 +52,7 @@ public class XApplication extends Application {
 	public void configureAssetsFactory() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		FontFactory.setAssetBasePath("font/");
+		SoundFactory.setAssetBasePath("sound/");
 	}
 	
 	public Engine createDefaultEngine() {
@@ -61,6 +63,8 @@ public class XApplication extends Application {
 		EngineOptions options = new EngineOptions(
 				true, ScreenOrientation.LANDSCAPE_FIXED,
 				resolutionPolicy, camera);
+		options.getAudioOptions().setNeedsSound(true);
+		options.getAudioOptions().setNeedsMusic(true);
 		
 		return new Engine(options);
 	}

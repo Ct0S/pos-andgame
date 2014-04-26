@@ -15,50 +15,52 @@ public class SpaceBoy extends AnimatedSprite {
 	private int mSpeed;
 	private States mState;
 	private PhysicsHandler mPhysicalHandler;
-	
+
 	private final int mLimiteX;
 	private final int mLimiteY;
-	
+
 	public SpaceBoy(float pX, float pY, TiledTextureRegion textureRegion,
 			Engine engine) {
 		super(pX, pY, textureRegion, engine.getVertexBufferObjectManager());
-		
+
 		mSpeed = 200;
-		
+
 		mPhysicalHandler = new PhysicsHandler(this);
-		
+
 		registerUpdateHandler(mPhysicalHandler);
-		
+
 		setState(States.Fowarding);
-		
-		mLimiteX = (int) (engine.getCamera().getWidth() - textureRegion.getWidth());
-		mLimiteY = (int) (engine.getCamera().getHeight() - textureRegion.getHeight());
+
+		mLimiteX = (int) (engine.getCamera().getWidth() - textureRegion
+				.getWidth());
+		mLimiteY = (int) (engine.getCamera().getHeight() - textureRegion
+				.getHeight());
 	}
-	
+
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
-		if(mX < 0) {
+		if (mX < 0) {
 			mPhysicalHandler.setVelocityX(mSpeed);
-		} else if(mX >= mLimiteX) {
+		} else if (mX >= mLimiteX) {
 			mPhysicalHandler.setVelocityX(-mSpeed);
 		}
-		
-		if(mY < 0) {
+
+		if (mY < 0) {
 			mPhysicalHandler.setVelocityY(mSpeed);
-		} else if(mY >= mLimiteY) {
+		} else if (mY >= mLimiteY) {
 			mPhysicalHandler.setVelocityY(-mSpeed);
 		}
-		
+
 		super.onManagedUpdate(pSecondsElapsed);
 	}
-	
+
 	public void move(float x, float y) {
-		if(x < 0) {
+		if (x < 0) {
 			setState(States.Back);
 		} else {
 			setState(States.Fowarding);
 		}
-		
+
 		mPhysicalHandler.setVelocity(x * mSpeed, y * mSpeed);
 	}
 

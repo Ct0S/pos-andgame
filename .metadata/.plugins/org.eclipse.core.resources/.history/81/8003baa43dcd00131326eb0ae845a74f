@@ -1,0 +1,5 @@
+package com.unopar.spaceboy.joystick;
+
+public class ControlListener {
+
+}
