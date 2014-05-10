@@ -5,6 +5,8 @@ import org.andengine.engine.handler.physics.PhysicsHandler;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 
+import com.unopar.spaceboy.character.WeaponPool.WeaponFactory;
+
 public class SpaceBoy extends AnimatedSprite {
 	public enum States {
 		None,
@@ -18,11 +20,15 @@ public class SpaceBoy extends AnimatedSprite {
 
 	private final int mLimiteX;
 	private final int mLimiteY;
+	
+	private final WeaponPool<WeaponMissile> mMissilePool;
 
 	public SpaceBoy(float pX, float pY, TiledTextureRegion textureRegion,
-			Engine engine) {
+			Engine engine, WeaponPool<WeaponMissile> missilePool) {
 		super(pX, pY, textureRegion, engine.getVertexBufferObjectManager());
 
+		mMissilePool = missilePool;
+		
 		mSpeed = 200;
 
 		mPhysicalHandler = new PhysicsHandler(this);
@@ -79,4 +85,7 @@ public class SpaceBoy extends AnimatedSprite {
 		}
 	}
 
+	public void shoot() {
+		mMissilePool.shoot(mX, mY);
+	}
 }
