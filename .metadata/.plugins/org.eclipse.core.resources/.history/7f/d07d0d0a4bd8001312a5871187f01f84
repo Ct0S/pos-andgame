@@ -1,0 +1,23 @@
+package com.unopar.spaceboy.character;
+
+import java.util.ArrayList;
+
+public class WeaponPool<T extends Weapon> {
+	private final ArrayList<T> mItems;
+	
+	public WeaponPool() {
+		mItems = new ArrayList<T>();
+	}
+	
+	public synchronized T shoot(float x, float y) {
+		T locked = null;
+		for(T weapon : mItems) {
+			if(weapon.shoot(x, y)) {
+				locked = weapon;
+				
+				break;
+			}
+		}
+	}
+
+}

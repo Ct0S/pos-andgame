@@ -1,0 +1,5 @@
+package com.unopar.spaceboy.character;
+
+public class Weapon {
+
+}

@@ -1,0 +1,16 @@
+package com.unopar.spaceboy.character;
+
+import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.vbo.VertexBufferObjectManager;
+
+import com.unopar.spaceboy.base.IXCollisionListener;
+
+public class Weapon extends AnimatedSprite {
+	public Weapon(ITiledTextureRegion textureRegion,
+			VertexBufferObjectManager vertexBuffer,
+			IXCollisionListener collisionListener) {
+		// TODO Auto-generated constructor stub
+	}
+
+}

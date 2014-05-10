@@ -1,0 +1,15 @@
+package com.unopar.spaceboy.character;
+
+import org.andengine.engine.handler.collision.ICollisionCallback;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.vbo.VertexBufferObjectManager;
+
+import com.unopar.spaceboy.base.IXCollisionListener;
+
+public class WeaponMissile extends Weapon {
+	public WeapongMissile(ITiledTextureRegion textureRegion,
+			VertexBufferObjectManager vertexBuffer,
+			IXCollisionListener collisionListener) {
+		
+	}
+}

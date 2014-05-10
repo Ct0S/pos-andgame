@@ -1,0 +1,9 @@
+package com.unopar.spaceboy.base;
+
+import org.andengine.entity.sprite.AnimatedSprite;
+
+public interface IXCollisionListener {
+	AnimatedSprite getMainCharacter();
+	void onCollision(AnimatedSprite obstacle);
+	
+}

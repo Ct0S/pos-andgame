@@ -1,0 +1,54 @@
+package com.unopar.spaceboy.character;
+
+import org.andengine.engine.handler.physics.PhysicsHandler;
+import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.vbo.VertexBufferObjectManager;
+
+import com.unopar.spaceboy.base.IXCollisionListener;
+import com.unopar.spaceboy.base.XApplication;
+
+public class Weapon extends AnimatedSprite {
+	private final IXCollisionListener mCollisionListener;
+	private final PhysicsHandler mPhysicsHandler;
+	private final IAnimationListener mAnimationListener;
+	
+	private final float mLimiteX;
+	
+	public Weapon(ITiledTextureRegion textureRegion,
+			VertexBufferObjectManager vertexBuffer,
+			IXCollisionListener collisionListener) {
+		super(0, 0, textureRegion, vertexBuffer);
+		
+		mCollisionListener = collisionListener;
+		
+		mPhysicsHandler = new PhysicsHandler(this);
+		registerUpdateHandler(mPhysicsHandler);
+		
+		mAnimationListener = new IAnimationListener() {
+			@Override
+			public void onAnimationStarted(AnimatedSprite pAnimatedSprite,
+					int pInitialLoopCount) {
+			}
+			
+			@Override
+			public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+					int pRemainingLoopCount, int pInitialLoopCount) {
+			}
+			
+			@Override
+			public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite,
+					int pOldFrameIndex, int pNewFrameIndex) {
+			}
+			
+			@Override
+			public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
+				
+			}
+		};
+	
+		mLimiteX = XApplication.getInstance().getScreenWidth() +
+				getWidth();
+	}
+
+}

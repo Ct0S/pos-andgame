@@ -1,0 +1,26 @@
+package com.unopar.spaceboy.character;
+
+import org.andengine.engine.handler.physics.PhysicsHandler;
+import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.vbo.VertexBufferObjectManager;
+
+import com.unopar.spaceboy.base.IXCollisionListener;
+
+public class Weapon extends AnimatedSprite {
+	private final IXCollisionListener mCollisionListener;
+	private final PhysicsHandler mPhysicsHandler;
+	private final IAnimationListener mAnimationListener;
+	
+	public Weapon(ITiledTextureRegion textureRegion,
+			VertexBufferObjectManager vertexBuffer,
+			IXCollisionListener collisionListener) {
+		super(0, 0, textureRegion, vertexBuffer);
+		
+		mCollisionListener = collisionListener;
+		
+		mPhysicsHandler = new PhysicsHandler(this);
+		registerUpdateHandler(mPhysicsHandler);
+	}
+
+}

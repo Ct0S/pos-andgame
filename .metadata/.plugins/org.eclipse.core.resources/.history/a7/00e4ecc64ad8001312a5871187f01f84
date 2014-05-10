@@ -1,0 +1,8 @@
+package com.unopar.spaceboy.character;
+
+import java.util.ArrayList;
+
+public class WeaponPool<T extends Weapon> {
+	private final ArrayList<T> mItems;
+
+}
