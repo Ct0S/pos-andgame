@@ -1,7 +1,0 @@
-package com.unopar.spaceboy.character;
-
-import org.andengine.entity.sprite.AnimatedSprite;
-
-public class Weapon extends AnimatedSprite {
-
-}

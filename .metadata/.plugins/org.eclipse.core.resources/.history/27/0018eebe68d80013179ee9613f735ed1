@@ -1,0 +1,17 @@
+package com.unopar.spaceboy.hud;
+
+import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.scene.Scene;
+import org.andengine.entity.text.Text;
+
+public class Score {
+	private Text mText;
+	private Scene mScene;
+	
+	private int mValue;
+	private int mDelayedValue;
+	private float mAnchorRight;
+	
+	private TimerHandler mTimer;
+
+}

@@ -10,6 +10,8 @@ public class WeaponMissile extends Weapon {
 			VertexBufferObjectManager vertexBuffer,
 			IXCollisionListener collisionListener) {
 		super(textureRegion, vertexBuffer, collisionListener);
+		
+		setRotation(90);
 	}
 
 	@Override

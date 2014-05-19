@@ -1,0 +1,8 @@
+package com.unopar.spaceboy.hud;
+
+import org.andengine.entity.text.Text;
+
+public class Score {
+	private Text mText;
+
+}

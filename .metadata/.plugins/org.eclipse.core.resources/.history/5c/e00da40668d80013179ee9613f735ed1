@@ -1,0 +1,6 @@
+package com.unopar.spaceboy.hud;
+
+public class Score {
+	private Text mText;
+
+}

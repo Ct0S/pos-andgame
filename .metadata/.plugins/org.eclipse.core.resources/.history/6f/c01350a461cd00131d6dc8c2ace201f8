@@ -1,8 +1,0 @@
-package com.unopar.spaceboy.character;
-
-import org.andengine.audio.sound.Sound;
-import org.andengine.entity.sprite.AnimatedSprite;
-
-public class Effect extends AnimatedSprite {
-	private Sound mSound;
-}

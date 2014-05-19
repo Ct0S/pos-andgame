@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=SpaceBoy/src&lt;com.unopar.spaceboy.base{XApplication.java[XApplication" modifiers="1" timestamp="1398524280534"/>
+<typeInfo handle="=SpaceBoy/src&lt;com.unopar.spaceboy.base{XApplication.java[XApplication" modifiers="1" timestamp="1399745606274"/>
 <typeInfo handle="=AndEngineTMXTiledMapExtension/src&lt;org.andengine.extension.tmx{TMXLayer.java[TMXLayer" modifiers="1" timestamp="1398539476551"/>
+<typeInfo handle="=SpaceBoy/src&lt;com.unopar.spaceboy.base{IXCollisionListener.java[IXCollisionListener" modifiers="513" timestamp="1399728907715"/>
+<typeInfo handle="=SpaceBoy/src&lt;com.unopar.spaceboy.character{SpaceBoy.java[SpaceBoy" modifiers="1" timestamp="1399733192040"/>
 </typeInfoHistroy>

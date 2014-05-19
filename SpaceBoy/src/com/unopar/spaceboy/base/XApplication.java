@@ -65,6 +65,7 @@ public class XApplication extends Application {
 				resolutionPolicy, camera);
 		options.getAudioOptions().setNeedsSound(true);
 		options.getAudioOptions().setNeedsMusic(true);
+		options.getTouchOptions().setNeedsMultiTouch(true);
 		
 		return new Engine(options);
 	}

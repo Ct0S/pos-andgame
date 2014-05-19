@@ -1,5 +1,0 @@
-package com.unopar.spaceboy.base;
-
-public interface IXCollisionListener {
-
-}

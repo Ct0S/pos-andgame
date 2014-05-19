@@ -149,6 +149,6 @@ public abstract class Weapon extends AnimatedSprite {
 	}
 
 	protected void move(float x, float y) {
-		mPhysicsHandler.setVelocity(x, y);
+		mPhysicsHandler.setVelocity(x * getSpeed(), y * getSpeed());
 	}
 }

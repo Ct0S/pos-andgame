@@ -39,6 +39,10 @@ public abstract class Enemy extends AnimatedSprite {
 	public void move() {
 		resetPosition(false);
 	}
+	
+	public void collide() {
+		resetPosition(true);
+	}
 
 	protected void resetPosition(boolean resetXY) {
 		if(resetXY) {

@@ -1,5 +1,7 @@
 package com.unopar.spaceboy;
 
+import java.util.ArrayList;
+
 import org.andengine.audio.sound.Sound;
 import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
@@ -12,6 +14,9 @@ import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.TextureRegion;
@@ -24,9 +29,11 @@ import com.unopar.spaceboy.character.Enemy;
 import com.unopar.spaceboy.character.ExplosionEffect;
 import com.unopar.spaceboy.character.Sattelite;
 import com.unopar.spaceboy.character.SpaceBoy;
+import com.unopar.spaceboy.character.Weapon;
 import com.unopar.spaceboy.character.WeaponMissile;
 import com.unopar.spaceboy.character.WeaponPool;
 import com.unopar.spaceboy.character.WeaponPool.WeaponFactory;
+import com.unopar.spaceboy.hud.Score;
 import com.unopar.spaceboy.joystick.ControlListener;
 
 public class PlayActivity extends BaseGameActivity {
@@ -55,6 +62,9 @@ public class PlayActivity extends BaseGameActivity {
 	private Sound mImplosion;
 	
 	private HUD mGameHUD;
+	
+	private SpaceBoy mBoy;
+	private Font mScoreFont;
 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -118,14 +128,22 @@ public class PlayActivity extends BaseGameActivity {
 				.createTiledFromAsset(
 						mWeaponTextureAtlas, getAssets(),
 						"weapon-missile.png", 0, 0, 17, 1);
-
+		
+		final BitmapTextureAtlas fontTextureAtlas = new BitmapTextureAtlas(
+				getTextureManager(), 1024, 1024, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mScoreFont = FontFactory.createFromAsset(
+				getFontManager(), fontTextureAtlas, getAssets(),
+				"KOMIKAX_.ttf", 18, true, android.graphics.Color.WHITE);
+		
+		
 		mBackgroundTextureAtlas.load();
 		mParallaxTopTextureAtlas.load();
 		mSpaceBoyTextureAtlas.load();
 		mJoystickTextureAtlas.load();
 		mEnemyTextureAtlas.load();
 		mEffectTextureAtlas.load();	
-		mWeaponTextureAtlas.load();		
+		mWeaponTextureAtlas.load();	
+		mScoreFont.load();
 
 		mImplosion = SoundFactory.createSoundFromAsset(
 				getSoundManager(), this,
@@ -143,7 +161,7 @@ public class PlayActivity extends BaseGameActivity {
 	}
 
 	@Override
-	public void onPopulateScene(Scene pScene,
+	public void onPopulateScene(final Scene pScene,
 			OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
 
 		int screenWidth = XApplication.getInstance().getScreenWidth();
@@ -159,27 +177,17 @@ public class PlayActivity extends BaseGameActivity {
 		parallax.attachParallaxEntity(new ParallaxEntity(-25, spriteParallaxTop));
 
 		pScene.setBackground(parallax);
-
-		final SpaceBoy boy = new SpaceBoy(20, 250, 
-				mSpaceBoyTextureRetion, mEngine,
-				new WeaponPool<WeaponMissile>(
-						new WeaponFactory<WeaponMissile>() {
-							@Override
-							public WeaponMissile create() {
-								return new WeaponMissile(
-										mWeaponTextureAtlas, 
-										getVertexBufferObjectManager(), 
-										collisionListener);
-							}
-						}
-				));
-		pScene.attachChild(boy);
 		
 		final ExplosionEffect explosionEffect = new ExplosionEffect(
 				mImplosion, mExplosionEffectTexture, mEngine);
 		pScene.attachChild(explosionEffect);
+		
+		final Score score = new Score(mEngine, mScoreFont, pScene);
+		
+		final ArrayList<Enemy> enemyCollection = 
+				new ArrayList<Enemy>();
 
-		IXCollisionListener collisionListener = new IXCollisionListener() {
+		final IXCollisionListener collisionListener = new IXCollisionListener() {
 			@Override
 			public void onCollision(AnimatedSprite obstacle) {
 				if(obstacle instanceof Sattelite) {
@@ -190,9 +198,42 @@ public class PlayActivity extends BaseGameActivity {
 
 			@Override
 			public AnimatedSprite getMainCharacter() {
-				return boy;
+				return mBoy;
+			}
+
+			@Override
+			public ArrayList<Enemy> getEnemyCharacters() {
+				return enemyCollection;
+			}
+
+			@Override
+			public void onCollision(Weapon weapon, Enemy enemy) {
+				if(weapon instanceof WeaponMissile) {
+					explosionEffect.show(enemy.getX(), enemy.getY());
+					
+					enemy.collide();
+					score.destroyed(enemy, 0);
+				}				
 			}
 		};
+
+		mBoy = new SpaceBoy(20, 250, 
+			mSpaceBoyTextureRetion, mEngine,
+			new WeaponPool<WeaponMissile>(
+					new WeaponFactory<WeaponMissile>() {
+						@Override
+						public WeaponMissile create() {
+							WeaponMissile missile = new WeaponMissile(
+									mWeaponMissileTexture, 
+									getVertexBufferObjectManager(), 
+									collisionListener);
+							
+							pScene.attachChild(missile);
+							return missile;
+						}
+					}
+			));
+		pScene.attachChild(mBoy);		
 
 		Sattelite st1 = new Sattelite(mSatteliteTexture, mEngine,
 				collisionListener);
@@ -204,15 +245,19 @@ public class PlayActivity extends BaseGameActivity {
 		pScene.attachChild(st1);
 		pScene.attachChild(st2);
 		pScene.attachChild(st3);
+		
+		enemyCollection.add(st1);
+		enemyCollection.add(st2);
+		enemyCollection.add(st3);
 
-		createHUD();
+		createHUD(mBoy, pScene);
 
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
 	}
 	
 	private void createHUD(final SpaceBoy boy, Scene pScene) {
-		int screenHeight = XApplication.getInstance().getScreenHeight();
-		int screenWidth = XApplication.getInstance().getScreenWidth();
+		float screenHeight = mEngine.getCamera().getHeight();
+		float screenWidth = mEngine.getCamera().getWidth();
 		
 		mGameHUD = new HUD();
 		mGameHUD.setTouchAreaBindingOnActionDownEnabled(true);
@@ -220,7 +265,7 @@ public class PlayActivity extends BaseGameActivity {
 		
 		final Sprite jumpButton = new Sprite(
 				screenWidth - mJoystickJumpButtonTexture.getWidth() - 50,
-				screenWidth - mJoystickJumpButtonTexture.getHeight() - 30,
+				screenHeight - mJoystickJumpButtonTexture.getHeight() - 30,
 				mJoystickJumpButtonTexture, getVertexBufferObjectManager()) {
 			@Override
 			public boolean onAreaTouched(TouchEvent pSceneTouchEvent,

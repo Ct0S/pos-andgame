@@ -1,0 +1,35 @@
+package com.unopar.spaceboy.hud;
+
+import java.text.DecimalFormat;
+
+import org.andengine.engine.Engine;
+import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.scene.Scene;
+import org.andengine.entity.text.Text;
+import org.andengine.opengl.font.Font;
+
+import com.unopar.spaceboy.base.XApplication;
+
+public class Score {
+	private Text mText;
+	private Scene mScene;
+	
+	private int mValue;
+	private int mDelayedValue;
+	private float mAnchorRight;
+	
+	private TimerHandler mTimer;
+	private DecimalFormat mFormat;
+	
+	public Score(Engine engine, Font font, Scene scene) {
+		mScene = scene;
+		mFormat = new DecimalFormat("0000000000");
+		
+		float screenWidth = XApplication.getInstance().getScreenWidth();
+		
+		mAnchorRight = screenWidth - 15;
+		mText = new Text(mAnchorRight, 5, font,  mFormat.format(0),
+				engine.getVertexBufferObjectManager());
+	}
+
+}
